@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
-
+//test
 	//screen settings
 	final int originalTileSize = 16; // 16x16 tile
 	final int scale = 3;
