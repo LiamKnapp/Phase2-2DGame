@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -19,13 +20,21 @@ public class Player extends Entity{
 		this.gp = gp;
 		this.keyH = keyH;
 		
+		hitBox = new Rectangle();
+		//make the hit box slightly smaller then the tile size so it fits player model
+		hitBox.x = 8;
+		hitBox.y = 16;
+		hitBox.height = 32;
+		hitBox.width = 32;
+		
 		setDefaultValues();
 		getPlayerImage();
+		
 	}
 	
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		x = gp.tileSize * 7;
+		y = gp.tileSize * 8;
 		speed = 4;
 		direction = "down";
 	}
@@ -53,21 +62,41 @@ public class Player extends Entity{
 
 		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
 			
-			if(keyH.upPressed == true) {
-				direction = "up";
-				y -= speed;
-			}
-			if(keyH.downPressed == true) {
-				direction = "down";
-				y += speed;
-			}
-			if(keyH.leftPressed == true) {
-				direction = "left";
-				x -= speed;
-			}
-			if(keyH.rightPressed == true) {
-				direction = "right";
-				x += speed;
+			
+			collisionOn = false;
+			gp.cChecker.checkTile(this);
+			
+			
+			if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
+					|| keyH.rightPressed == true) {
+
+				collisionOn = false;
+				gp.cChecker.checkTile(this);
+
+				if (keyH.upPressed == true) {
+					direction = "up";
+					if (collisionOn == false) {
+						y -= speed;
+					}
+				}
+				if (keyH.downPressed == true) {
+					direction = "down";
+					if (collisionOn == false) {
+						y += speed;
+					}
+				}
+				if (keyH.leftPressed == true) {
+					direction = "left";
+					if (collisionOn == false) {
+						x -= speed;
+					}
+				}
+				if (keyH.rightPressed == true) {
+					direction = "right";
+					if (collisionOn == false) {
+						x += speed;
+					}
+				}
 			}
 			
 			spriteCounter++;
