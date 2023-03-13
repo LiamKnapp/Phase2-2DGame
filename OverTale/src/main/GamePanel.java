@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Enemy;
 import entity.Player;
 import tile.TileManager;
 
@@ -28,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	public CollisionChecker cChecker = new CollisionChecker(this);
+	
+	Enemy enemy = new Enemy(this);
 	Player player = new Player(this, keyH);
 	
 	public GamePanel() {
@@ -91,6 +94,8 @@ public class GamePanel extends JPanel implements Runnable{
 			Graphics2D g2 = (Graphics2D)g;
 			
 			tileM.draw(g2);
+			
+			enemy.draw(g2);
 			
 			player.draw(g2);
 			
