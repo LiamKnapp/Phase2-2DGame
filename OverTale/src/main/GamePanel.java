@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -23,13 +24,18 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
 	public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 	
+	//FPS
 	int FPS = 60;
 	
+	//SYSTEM
 	TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler();
+	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	
+	
+	//ENTITY / OBJECT
 	Enemy enemy = new Enemy(this);
 	Player player = new Player(this, keyH);
 	
@@ -41,6 +47,20 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		
+		gameSetup();
+	}
+	
+	public void gameSetup() {
+		Random rn = new Random();
+		int answer = rn.nextInt(2);
+		switch (answer) {
+			case 0:
+				playMusic(0);
+				break;
+			case 1:
+				playMusic(1);
+				break;
+		}
 	}
 
 	public void startGameThread() {
@@ -83,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		public void update() {
 			
+		enemy.update();
 		player.update();
 			
 		}
@@ -101,4 +122,24 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			g2.dispose();
 		}		
+		
+		public void playMusic(int i) {
+			
+			sound.setFile(i);
+			sound.checkVolume();
+			sound.play();
+			sound.loop();
+		}
+		
+		public void stopMusic(int i) {
+			
+			sound.stop();
+		}
+		
+		public void playSE(int i) {
+			
+			sound.setFile(i);
+			sound.checkVolume();
+			sound.play();
+		}
 }	

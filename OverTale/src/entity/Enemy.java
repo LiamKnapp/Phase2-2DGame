@@ -19,7 +19,6 @@ public class Enemy extends Entity{
 		getEnemyImage();
 	}
 	
-	
 	public void getRandomEnemy() {
 		enemyName = "Orc";
 		Random rn = new Random();
@@ -62,9 +61,12 @@ public class Enemy extends Entity{
 	public void getEnemyImage() {
 		try {
 			
-			enemy1 = ImageIO.read(getClass().getResourceAsStream("/enemy/orc_down_2.png"));
-			enemy2 = ImageIO.read(getClass().getResourceAsStream("/enemy/skeletonlord_phase2_down_1.png"));
-			enemy3 = ImageIO.read(getClass().getResourceAsStream("/enemy/greenslime_down_1.png"));
+			orc1 = ImageIO.read(getClass().getResourceAsStream("/enemy/orc_down_1.png"));
+			orc2 = ImageIO.read(getClass().getResourceAsStream("/enemy/orc_down_2.png"));
+			skeleton1 = ImageIO.read(getClass().getResourceAsStream("/enemy/skeletonlord_phase2_down_1.png"));
+			skeleton2 = ImageIO.read(getClass().getResourceAsStream("/enemy/skeletonlord_phase2_down_2.png"));
+			slime1 = ImageIO.read(getClass().getResourceAsStream("/enemy/greenslime_down_1.png"));
+			slime2 = ImageIO.read(getClass().getResourceAsStream("/enemy/greenslime_down_2.png"));
 			
 		}catch(IOException e){
 			e.printStackTrace();
@@ -73,7 +75,16 @@ public class Enemy extends Entity{
 	
 	
 	public void update() {
-		//TODO
+		spriteCounter++;
+		if(spriteCounter > 20){
+			if (spriteNum == 1) {
+				spriteNum = 2;
+			}
+			else if (spriteNum == 2) {
+				spriteNum = 1;
+			}
+			spriteCounter = 0;
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -82,13 +93,28 @@ public class Enemy extends Entity{
 		
 		switch (enemyName) {
 		case "Orc":
-			image = enemy1;
+			if(spriteNum == 1) {
+				image = orc1;
+			}
+			if (spriteNum == 2) {
+				image = orc2;
+			}
 			break;
 		case "Skeleton":
-			image = enemy2;
+			if(spriteNum == 1) {
+				image = skeleton1;
+			}
+			if (spriteNum == 2) {
+				image = skeleton2;
+			}
 			break;
 		case "Slime":
-			image = enemy3;
+			if(spriteNum == 1) {
+				image = slime1;
+			}
+			if (spriteNum == 2) {
+				image = slime2;
+			}
 			break;
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
