@@ -72,7 +72,7 @@ public class Enemy extends Entity{
 			e.printStackTrace();
 		}
 	}
-	
+	//test
 	
 	public void update() {
 		spriteCounter++;
