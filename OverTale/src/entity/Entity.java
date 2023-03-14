@@ -11,16 +11,13 @@ public class Entity {
 	public int health;
 	public int damage;
 	//test
-	public BufferedImage orc1, orc2, skeleton1, skeleton2, slime1, slime2,grass;
+	public BufferedImage orc1, orc2, skeleton1, skeleton2, slime1, slime2;
 	public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 	public String direction;
 	public String enemyName;
-<<<<<<< HEAD
 
-	
-=======
 	public boolean visible = false;
->>>>>>> branch 'master' of https://github.com/LiamKnapp/Phase2-2DGame.git
+
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	

@@ -35,27 +35,6 @@ public class Player extends Entity{
 	{
 		return this.modeString;
 	}
-<<<<<<< HEAD
-	
-	
-	public void getPlayerImage() {
-		
-		try {
-			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
-			
-			
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-=======
 	public void SwitchMode()
 	{
 		if(modeString == "Defence")
@@ -63,18 +42,11 @@ public class Player extends Entity{
 			this.modeString = "Attack";
 		}else {this.modeString = "Defence"; visible = true;}
 		System.out.println("Switch player mode to " + this.modeString);
->>>>>>> branch 'master' of https://github.com/LiamKnapp/Phase2-2DGame.git
 	}
-<<<<<<< HEAD
-	
-	public void update() {
-		
-=======
 	public void AttackMode()
 	{
 		if(visible == true) {
 		speed = 0;
->>>>>>> branch 'master' of https://github.com/LiamKnapp/Phase2-2DGame.git
 		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
 			
 			
@@ -126,8 +98,6 @@ public class Player extends Entity{
 			}
 		}
 		}
-<<<<<<< HEAD
-=======
 	}
 	public void DefenceMode()
 	{
@@ -172,16 +142,16 @@ public class Player extends Entity{
 				}
 			}
 			
-//			spriteCounter++;
-//			if(spriteCounter > 10){
-//				if (spriteNum == 1) {
-//					spriteNum = 2;
-//				}
-//				else if (spriteNum == 2) {
-//					spriteNum = 1;
-//				}
-//				spriteCounter = 0;
-//			}
+			spriteCounter++;
+			if(spriteCounter > 10){
+				if (spriteNum == 1) {
+					spriteNum = 2;
+				}
+				else if (spriteNum == 2) {
+					spriteNum = 1;
+				}
+				spriteCounter = 0;
+			}
 		}
 		}
 	}
@@ -227,7 +197,6 @@ public class Player extends Entity{
 			throw new IllegalArgumentException("Unexpected value: " + mode);
 		}
 	}
->>>>>>> branch 'master' of https://github.com/LiamKnapp/Phase2-2DGame.git
 	
 	public void draw(Graphics2D g2) {
 		
@@ -270,10 +239,6 @@ public class Player extends Entity{
 			break;
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-		}
 	}
-<<<<<<< HEAD
-=======
 	}
 }
->>>>>>> branch 'master' of https://github.com/LiamKnapp/Phase2-2DGame.git

@@ -75,7 +75,6 @@ public class Enemy extends Entity{
 	
 	public void getEnemyImage() {
 		try {
-			grass = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
 			orc1 = ImageIO.read(getClass().getResourceAsStream("/enemy/orc_down_1.png"));
 			orc2 = ImageIO.read(getClass().getResourceAsStream("/enemy/orc_down_2.png"));
 			skeleton1 = ImageIO.read(getClass().getResourceAsStream("/enemy/skeletonlord_phase2_down_1.png"));

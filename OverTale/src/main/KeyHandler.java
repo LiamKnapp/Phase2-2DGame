@@ -31,6 +31,7 @@ public class KeyHandler implements KeyListener{
 		    if (key == KeyEvent.VK_DOWN) {
 		        downPressed = true;
 		    }
+		
 	}
 
 	@Override
