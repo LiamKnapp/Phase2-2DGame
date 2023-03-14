@@ -39,6 +39,7 @@ public class Player extends Entity{
 		direction = "down";
 	}
 	
+	
 	public void getPlayerImage() {
 		
 		try {
@@ -59,7 +60,7 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-
+		
 		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
 			
 			
@@ -110,7 +111,7 @@ public class Player extends Entity{
 				spriteCounter = 0;
 			}
 		}
-	}
+		}
 	
 	public void draw(Graphics2D g2) {
 		
@@ -151,5 +152,5 @@ public class Player extends Entity{
 			break;
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		}
 	}
-}
