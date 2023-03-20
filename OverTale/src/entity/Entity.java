@@ -19,7 +19,7 @@ public class Entity {
 
 	public boolean visible = false;
 	public boolean enemyVisible = false;
-
+	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	

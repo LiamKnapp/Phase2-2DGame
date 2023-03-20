@@ -7,7 +7,7 @@ import entity.Projectile;
 
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, shotPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, shotPressed, attackEnemy, useItem;
 	//test
 	
 	GamePanel gp;
@@ -45,6 +45,18 @@ public class KeyHandler implements KeyListener{
 //		        
 //		        gp.projectileList.add(p);
 //		    }
+		    
+		    if (gp.attackMode == true) {
+		    //if is the attack turn
+		    if (key == KeyEvent.VK_ENTER) {
+		        attackEnemy = true;
+		    }
+		    
+		    //if is the attack turn
+		    if (key == KeyEvent.VK_V) {
+		        useItem = true;
+		    }
+		    }
 	}
 	
 	@Override
@@ -69,6 +81,18 @@ public class KeyHandler implements KeyListener{
 //	    if (key == KeyEvent.VK_F) {
 //	        shotPressed = false;
 //	    }
+	    
+	    if (gp.attackMode == true) {
+	    //if is the attack turn
+	    if (key == KeyEvent.VK_ENTER) {
+	        attackEnemy = false;
+	    }
+	    
+	    //if is the attack turn
+	    if (key == KeyEvent.VK_V) {
+	        useItem = false;
+	    }
+	    }
 		
 	}
 

@@ -54,7 +54,7 @@ public class Sound {
 	}
 	
 	public void checkVolume() {
-		volume = -80f;
+		volume = -12f;
 		
 		fc.setValue(volume);
 	}

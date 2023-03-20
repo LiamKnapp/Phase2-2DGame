@@ -53,8 +53,18 @@ public class Player extends Entity{
 		}else {this.modeString = "Defence"; visible = true;}
 		System.out.println("Switch player mode to " + this.modeString);
 	}
+	
 	public void AttackMode()
 	{
+		gp.attackMode = true;
+		
+		if (keyH.attackEnemy == true) { // attack the enemy
+			gp.enemytakeDMG = true;
+		} 
+		
+		if (keyH.useItem == true) { // use items
+			//display list of items that they can use
+		} 
 		
 	}
 	public void DefenceMode()
@@ -130,7 +140,7 @@ public class Player extends Entity{
 	public void setHealth() {
 		if (hit == true) {
 		health = health - damage;
-		System.out.println("health: " + health);
+		System.out.println("Player Hit, health: " + health);
 		} 
 	}
 	

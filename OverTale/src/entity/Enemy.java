@@ -24,10 +24,12 @@ public class Enemy extends Entity{
 		getRandomEnemy();
 		getEnemyImage();
 	}
+	
 	public String GetMode()
 	{
 		return this.modeString;
 	}
+	
 	public void SwitchMode()
 	{
 		if(modeString == "Defence")
@@ -63,21 +65,21 @@ public class Enemy extends Entity{
 		
 		switch (enemyName) {
 		case "Orc":
-			health = 10;
+			health = 13;
 			damage = 3;
 			numberOfProjectile = 5;
 			speedOfProjectile = 3;
 			HealthOfProjectile = 105;
 			break;
 		case "Skeleton":
-			health = 7;
+			health = 12;
 			damage = 2;
 			numberOfProjectile = 7;
 			speedOfProjectile = 2;
 			HealthOfProjectile = 130;
 			break;
 		case "Slime":
-			health = 4;
+			health = 7;
 			damage = 5;
 			numberOfProjectile = 4;
 			speedOfProjectile = 5;
@@ -121,11 +123,17 @@ public class Enemy extends Entity{
 		}
 	}
 	
+	public void setHealth() {
+		Random rn = new Random();
+		int answer = rn.nextInt(6) + 1;
+		health = health - answer;
+		System.out.println("Enemy hit, health: " + health);
+	}
+	
 	private void AttackMode() {
 		if(enemyVisible == true)
 		{
-		// enermy can attack
-		// TODO Auto-generated method stub
+			
 		spriteCounter++;
 		if(spriteCounter > 10){
 			if (spriteNum == 1) {
@@ -140,8 +148,6 @@ public class Enemy extends Entity{
 	}
 
 	private void DefenceMode() {
-		// enemy cannot attack
-		// TODO Auto-generated method stub
 		if(enemyVisible == true) {
 		if (gp.projectileList.size() < numberOfProjectile) {
 		Projectile p = new Projectile(gp.tileSize, damage, speedOfProjectile, HealthOfProjectile);
@@ -159,14 +165,6 @@ public class Enemy extends Entity{
 			spriteCounter = 0;
 		}		
 	}
-	}
-	public int RandomTurnTime()
-	{
-		int min_second_turn = 4;
-		int max_second_turn = 5;
-		
-	    int random_second_per_turn = (int)Math.floor(Math.random() * (max_second_turn - min_second_turn + 1) + min_second_turn);
-	    return random_second_per_turn;
 	}
 	
 	public void draw(Graphics2D g2) {

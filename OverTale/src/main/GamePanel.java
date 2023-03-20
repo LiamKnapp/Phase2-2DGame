@@ -42,10 +42,11 @@ public class GamePanel extends JPanel implements Runnable {
 	// ENTITY / OBJECT
 	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
 	
-	
+	public boolean attackMode = false;
 	Enemy enemy = new Enemy(this);
+	public boolean enemytakeDMG = false;
 	Player player = new Player(this, keyH);
-
+	
 	public GamePanel() {
 
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -116,6 +117,23 @@ public class GamePanel extends JPanel implements Runnable {
 				delta--;
 				drawCount++;
 			}
+			
+			if (attackMode == true) {
+				
+				if (enemytakeDMG == true) { // if the user selects to attack the enemy on there turn
+					player.SwitchMode();
+					enemy.SwitchMode();
+					System.out.println("Done " + time_of_turn + " second, Changing mode...");
+					lastTime_timer2 = System.currentTimeMillis();
+					timer_2 = 0;
+					time_of_turn = RandomTurnTime();
+					enemy.setHealth();
+					enemytakeDMG = false;
+				}
+				
+				//System.out.println("Users turn: select fight or item!");
+			}else {
+			
 			if (timer_2 >= 1000 * time_of_turn) {
 				player.SwitchMode();
 				enemy.SwitchMode();
@@ -126,8 +144,10 @@ public class GamePanel extends JPanel implements Runnable {
 				timer_2 = 0;
 				time_of_turn = RandomTurnTime();
 			}
+			}
 			if (timer >= 1000000000) {
 				//System.out.println("FPS: " + drawCount);
+				getCurrentMode();
 				drawCount = 0;
 				timer = 0;
 			}
@@ -137,6 +157,18 @@ public class GamePanel extends JPanel implements Runnable {
 	public void ApplyMode(Enemy enemy, Player player) {
 		enemy.update(player.GetMode());
 		player.update(player.GetMode());			
+	}
+	
+	public void getCurrentMode() {
+		String modeString = player.GetMode();
+		if(modeString == "Defence")
+		{
+			attackMode = false;
+			//System.out.println("Current Mode: Defence");
+		} else {
+			//System.out.println("Current Mode: Attack");
+			attackMode = true;
+		}
 	}
 
 	public void update() {
