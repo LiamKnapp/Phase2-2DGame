@@ -3,10 +3,18 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import entity.Projectile;
+
 public class KeyHandler implements KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, shotPressed;
 	//test
+	
+	GamePanel gp;
+	
+	public KeyHandler(GamePanel gp) {
+		this.gp = gp;
+	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {	
@@ -31,9 +39,14 @@ public class KeyHandler implements KeyListener{
 		    if (key == KeyEvent.VK_DOWN) {
 		        downPressed = true;
 		    }
-		
+//		    if (key == KeyEvent.VK_F) {
+//		        shotPressed = true;
+//		        Projectile p = new Projectile(gp.tileSize, 2);
+//		        
+//		        gp.projectileList.add(p);
+//		    }
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -53,6 +66,9 @@ public class KeyHandler implements KeyListener{
 	    if (key == KeyEvent.VK_DOWN) {
 	    	downPressed = false;
 	    }
+//	    if (key == KeyEvent.VK_F) {
+//	        shotPressed = false;
+//	    }
 		
 	}
 

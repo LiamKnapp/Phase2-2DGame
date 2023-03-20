@@ -12,11 +12,15 @@ public class Enemy extends Entity{
 
 	GamePanel gp;
 	String modeString;
+	int numberOfProjectile;
+	int speedOfProjectile;
+	int HealthOfProjectile;
 
 	
 	public Enemy(GamePanel gp) {
 		this.modeString = "Attack";
 		this.gp = gp;
+		enemyVisible = true;
 		getRandomEnemy();
 		getEnemyImage();
 	}
@@ -59,16 +63,25 @@ public class Enemy extends Entity{
 		
 		switch (enemyName) {
 		case "Orc":
-			this.health = 10;
-			this.damage = 3;
+			health = 10;
+			damage = 3;
+			numberOfProjectile = 5;
+			speedOfProjectile = 3;
+			HealthOfProjectile = 105;
 			break;
 		case "Skeleton":
-			this.health = 7;
-			this.damage = 2;
+			health = 7;
+			damage = 2;
+			numberOfProjectile = 7;
+			speedOfProjectile = 2;
+			HealthOfProjectile = 130;
 			break;
 		case "Slime":
-			this.health = 4;
-			this.damage = 5;
+			health = 4;
+			damage = 5;
+			numberOfProjectile = 4;
+			speedOfProjectile = 5;
+			HealthOfProjectile = 80;
 			break;
 		}
 	}
@@ -90,6 +103,10 @@ public class Enemy extends Entity{
 	
 	public void update(String mode) {
 		
+		if (health <= 0) {
+			enemyVisible = false;
+			System.out.println("Enemy died!");
+		} else {
 		switch (mode.toLowerCase()) {
 		case "defence":
     		DefenceMode();
@@ -101,21 +118,12 @@ public class Enemy extends Entity{
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + mode);
 		}
-		
-		
-		spriteCounter++;
-		if(spriteCounter > 20){
-			if (spriteNum == 1) {
-				spriteNum = 2;
-			}
-			else if (spriteNum == 2) {
-				spriteNum = 1;
-			}
-			spriteCounter = 0;
 		}
 	}
 	
 	private void AttackMode() {
+		if(enemyVisible == true)
+		{
 		// enermy can attack
 		// TODO Auto-generated method stub
 		spriteCounter++;
@@ -128,11 +136,18 @@ public class Enemy extends Entity{
 			}
 			spriteCounter = 0;
 		}
+		}
 	}
 
 	private void DefenceMode() {
 		// enemy cannot attack
 		// TODO Auto-generated method stub
+		if(enemyVisible == true) {
+		if (gp.projectileList.size() < numberOfProjectile) {
+		Projectile p = new Projectile(gp.tileSize, damage, speedOfProjectile, HealthOfProjectile);
+        gp.projectileList.add(p);
+			}
+		
 		spriteCounter++;
 		if(spriteCounter > 10){
 			if (spriteNum == 1) {
@@ -143,6 +158,7 @@ public class Enemy extends Entity{
 			}
 			spriteCounter = 0;
 		}		
+	}
 	}
 	public int RandomTurnTime()
 	{
@@ -155,6 +171,8 @@ public class Enemy extends Entity{
 	
 	public void draw(Graphics2D g2) {
 		
+		if(enemyVisible == true)
+		{
 
 		BufferedImage image = null;
 		
@@ -185,6 +203,7 @@ public class Enemy extends Entity{
 			break;
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		}
 
 	}
 }

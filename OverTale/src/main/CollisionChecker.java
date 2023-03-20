@@ -12,10 +12,10 @@ public class CollisionChecker {
 	
 	public void checkTile(Entity entity) {
 		
-		int entityLeftX = entity.x + entity.hitBox.x;
-		int entityRightX = entity.x + entity.hitBox.x + entity.hitBox.width;
-		int entityTopY = entity.y + entity.hitBox.y;
-		int entityBottomY = entity.y + entity.hitBox.y + entity.hitBox.height;
+		int entityLeftX = entity.x + entity.hitBoxTile.x;
+		int entityRightX = entity.x + entity.hitBoxTile.x + entity.hitBoxTile.width;
+		int entityTopY = entity.y + entity.hitBoxTile.y;
+		int entityBottomY = entity.y + entity.hitBoxTile.y + entity.hitBoxTile.height;
 		
 		
 		int entityLeftCol = entityLeftX/gp.tileSize;
@@ -70,5 +70,20 @@ public class CollisionChecker {
 			break;
 		
 		}
+	}
+	
+	public void checkProjectile(Entity entity) {
+		
+		for (int i = 0; i < gp.projectileList.size(); i ++) {
+			if (entity.hitBox.intersects(gp.projectileList.get(i).hitBox)) {
+				entity.damage = gp.projectileList.get(i).damage;
+				gp.projectileList.remove(i);
+				entity.hit = true;
+				System.out.println("hit");
+			}else {
+				//System.out.println("miss");
+			}
+		}
+			
 	}
 }

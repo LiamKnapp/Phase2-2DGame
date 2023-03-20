@@ -1,15 +1,21 @@
 package main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entity.Enemy;
 import entity.Player;
+import entity.Projectile;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -17,7 +23,6 @@ public class GamePanel extends JPanel implements Runnable {
 	// screen settings
 	final int originalTileSize = 16; // 16x16 tile
 	final int scale = 3;
-
 	public final int tileSize = originalTileSize * scale; // 48x48 tile
 	public final int maxScreenCol = 16;
 	public final int maxScreenRow = 12;
@@ -29,12 +34,15 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// SYSTEM
 	TileManager tileM = new TileManager(this);
-	KeyHandler keyH = new KeyHandler();
+	KeyHandler keyH = new KeyHandler(this);
 	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker cChecker = new CollisionChecker(this);
 
 	// ENTITY / OBJECT
+	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
+	
+	
 	Enemy enemy = new Enemy(this);
 	Player player = new Player(this, keyH);
 
@@ -45,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-
+    
 		gameSetup();
 	}
 
@@ -119,7 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
 				time_of_turn = RandomTurnTime();
 			}
 			if (timer >= 1000000000) {
-				System.out.println("FPS: " + drawCount);
+				//System.out.println("FPS: " + drawCount);
 				drawCount = 0;
 				timer = 0;
 			}
@@ -132,8 +140,20 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-
+		
 		this.ApplyMode(enemy, player);
+		
+		
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).health > 0) {
+					projectileList.get(i).update();
+				}
+				if(projectileList.get(i).health <= 0) {
+					projectileList.remove(i);
+				}
+			}
+		}
 		
 	}
 
@@ -148,6 +168,15 @@ public class GamePanel extends JPanel implements Runnable {
 		enemy.draw(g2);
 
 		player.draw(g2);
+		
+		
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).health > 0) {
+					projectileList.get(i).draw(g2);
+				}
+			}
+		}
 
 		g2.dispose();
 	}

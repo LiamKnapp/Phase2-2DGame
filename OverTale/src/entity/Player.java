@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,15 @@ public class Player extends Entity{
 		this.gp = gp;
 		this.keyH = keyH;
 		this.modeString = "Defence";
+		
+		
+		hitBoxTile = new Rectangle();
+		//make the hit box slightly smaller then the tile size so it fits player model
+		hitBoxTile.x = 8;
+		hitBoxTile.y = 16;
+		hitBoxTile.height = 32;
+		hitBoxTile.width = 32;
+		
 		hitBox = new Rectangle();
 		//make the hit box slightly smaller then the tile size so it fits player model
 		hitBox.x = 8;
@@ -45,70 +55,19 @@ public class Player extends Entity{
 	}
 	public void AttackMode()
 	{
-		if(visible == true) {
-		speed = 0;
-		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
-			
-			
-			collisionOn = false;
-			gp.cChecker.checkTile(this);
-			
-			
-			if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
-					|| keyH.rightPressed == true) {
-
-				collisionOn = false;
-				gp.cChecker.checkTile(this);
-
-				if (keyH.upPressed == true) {
-					direction = "up";
-					if (collisionOn == false) {
-						y -= speed;
-					}
-				}
-				if (keyH.downPressed == true) {
-					direction = "down";
-					if (collisionOn == false) {
-						y += speed;
-					}
-				}
-				if (keyH.leftPressed == true) {
-					direction = "left";
-					if (collisionOn == false) {
-						x -= speed;
-					}
-				}
-				if (keyH.rightPressed == true) {
-					direction = "right";
-					if (collisionOn == false) {
-						x += speed;
-					}
-				}
-			}
-			
-			spriteCounter++;
-			if(spriteCounter > 10){
-				if (spriteNum == 1) {
-					spriteNum = 2;
-				}
-				else if (spriteNum == 2) {
-					spriteNum = 1;
-				}
-				spriteCounter = 0;
-			}
-		}
-		}
+		
 	}
 	public void DefenceMode()
 	{
 		if(visible == true) {
 		speed = 4;
-		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
-			
-			
+		
+			hit = false;
+			gp.cChecker.checkProjectile(this);
+			setHealth();
+		
 			collisionOn = false;
 			gp.cChecker.checkTile(this);
-			
 			
 			if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
 					|| keyH.rightPressed == true) {
@@ -140,6 +99,8 @@ public class Player extends Entity{
 						x += speed;
 					}
 				}
+				hitBox.x = x + 8;
+				hitBox.y = y + 16;
 			}
 			
 			spriteCounter++;
@@ -152,14 +113,25 @@ public class Player extends Entity{
 				}
 				spriteCounter = 0;
 			}
-		}
 		}
 	}
 	public void setDefaultValues() {
 		x = gp.tileSize * 7;
 		y = gp.tileSize * 8;
 		speed = 4;
+		health = 12;
+		
 		direction = "down";
+		
+		hitBox.x = x + 8;
+		hitBox.y = y + 16;
+	}
+	
+	public void setHealth() {
+		if (hit == true) {
+		health = health - damage;
+		System.out.println("health: " + health);
+		} 
 	}
 	
 	public void getPlayerImage() {
@@ -182,7 +154,12 @@ public class Player extends Entity{
 	}
 	
 	public void update(String mode) {
-
+		
+		
+		if (health <= 0) {// if the player died
+			visible = false;
+			System.out.println("You died!");
+		}else { // if the player is still alive
 		switch (mode.toLowerCase()) {
 		case "defence":
 			visible = true;
@@ -195,6 +172,7 @@ public class Player extends Entity{
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + mode);
+		}
 		}
 	}
 	
@@ -238,7 +216,17 @@ public class Player extends Entity{
 			}
 			break;
 		}
+		
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		
+		//hit box for tile mapping
+//		g2.setColor(Color.BLACK);
+//		g2.fillRect(hitBoxTile.x, hitBoxTile.y, hitBoxTile.width, hitBoxTile.height);
+		
+		//hit box for projectiles
+//		g2.setColor(Color.RED);
+//		g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
+		
 	}
 	}
 }
