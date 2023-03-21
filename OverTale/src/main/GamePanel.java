@@ -38,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public boolean attackMode = false;
 	public boolean gameOver = false;
+	int surviveCounter = 0;
+	
 
 	// ENTITY / OBJECT
 	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
@@ -58,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void gameSetup() {
+		System.out.println("Round: " + surviveCounter);
 		Random rn = new Random();
 		int answer = rn.nextInt(2);
 		switch (answer) {
@@ -207,6 +210,23 @@ public class GamePanel extends JPanel implements Runnable {
 					projectileList.remove(i);
 				}
 			}
+		}
+		
+		if (enemy.health <= 0) {
+			enemy = new Enemy(this);
+			surviveCounter = surviveCounter + 1;
+			System.out.println("Round Complete!");
+			System.out.println("Survived Rounds: " + surviveCounter);
+			System.out.println("New Enemy Appeared!!!");
+		}
+		
+		if (player.health <= 0) {
+			System.out.println("Round Failed!");
+			System.out.println("Survived Rounds: " + surviveCounter);
+			//call player class deconstructor 
+			//call enemy class deconstructor
+			//stop game loop
+			//memento return to previous state or close game
 		}
 		
 	}
