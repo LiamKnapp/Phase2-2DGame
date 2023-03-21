@@ -19,7 +19,7 @@ import entity.Projectile;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
-//test
+
 	// screen settings
 	final int originalTileSize = 16; // 16x16 tile
 	final int scale = 3;
@@ -28,8 +28,6 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int maxScreenRow = 12;
 	public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
 	public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
-	
-	// FPS
 	int FPS = 60;
 
 	// SYSTEM
@@ -38,14 +36,15 @@ public class GamePanel extends JPanel implements Runnable {
 	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker cChecker = new CollisionChecker(this);
+	public boolean attackMode = false;
+	public boolean gameOver = false;
 
 	// ENTITY / OBJECT
 	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
-	
-	public boolean attackMode = false;
 	Enemy enemy = new Enemy(this);
-	public boolean enemytakeDMG = false;
 	Player player = new Player(this, keyH);
+	public boolean enemytakeDMG = false;
+	public boolean playerHeal = false;
 	
 	public GamePanel() {
 
@@ -131,8 +130,19 @@ public class GamePanel extends JPanel implements Runnable {
 					enemytakeDMG = false;
 				}
 				
+				if (playerHeal == true) { // if the user selects to attack the enemy on there turn
+					player.SwitchMode();
+					enemy.SwitchMode();
+					System.out.println("Done " + time_of_turn + " second, Changing mode...");
+					lastTime_timer2 = System.currentTimeMillis();
+					timer_2 = 0;
+					time_of_turn = RandomTurnTime();
+					player.setHealth();
+					playerHeal = false;
+				}
+				
 				//System.out.println("Users turn: select fight or item!");
-			}else {
+			} else {
 			
 			if (timer_2 >= 1000 * time_of_turn) {
 				player.SwitchMode();
@@ -164,6 +174,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if(modeString == "Defence")
 		{
 			attackMode = false;
+			enemytakeDMG = false; // for extra security for bug fixing
+			playerHeal = false;
 			//System.out.println("Current Mode: Defence");
 		} else {
 			//System.out.println("Current Mode: Attack");
@@ -175,7 +187,17 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		this.ApplyMode(enemy, player);
 		
-		
+		if (attackMode == true) {
+			//update the hp of the projectile to draw it for a certain distance
+			for (int i = 0; i < projectileList.size(); i++) {
+				if (projectileList.get(i) != null) {
+					if(projectileList.get(i).health <= 0) {
+						projectileList.remove(i);
+					}
+				}
+			}
+		}
+		//update the hp of the projectile to draw it for a certain distance
 		for (int i = 0; i < projectileList.size(); i++) {
 			if (projectileList.get(i) != null) {
 				if (projectileList.get(i).health > 0) {
@@ -202,6 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
 		player.draw(g2);
 		
 		
+		//for every projectile in the list draw it
 		for (int i = 0; i < projectileList.size(); i++) {
 			if (projectileList.get(i) != null) {
 				if (projectileList.get(i).health > 0) {

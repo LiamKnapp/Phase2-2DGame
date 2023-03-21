@@ -114,7 +114,7 @@ public class Enemy extends Entity{
     		DefenceMode();
 			break;
 		case "attack" :
-			// Cant run
+			//cant run
 			AttackMode();
 			break;
 		default:

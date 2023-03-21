@@ -5,17 +5,21 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import objects.HealItem;
 
 public class Player extends Entity{
 //test
 	GamePanel gp;
 	KeyHandler keyH;
 	String modeString;
+	ArrayList <HealItem> healItemList = new ArrayList<>();
+	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
 		this.gp = gp;
@@ -64,6 +68,7 @@ public class Player extends Entity{
 		
 		if (keyH.useItem == true) { // use items
 			//display list of items that they can use
+			gp.playerHeal = true;
 		} 
 		
 	}
@@ -130,6 +135,14 @@ public class Player extends Entity{
 		y = gp.tileSize * 8;
 		speed = 4;
 		health = 12;
+		maxHealth = health;
+		healItems = 8;
+		
+		//fill the item list with healing items
+		for (int i = 0; i < healItems; i++) {
+		HealItem hpPotion = new HealItem(4, "Small Hp Potion");
+		healItemList.add(hpPotion);
+		}
 		
 		direction = "down";
 		
@@ -141,7 +154,24 @@ public class Player extends Entity{
 		if (hit == true) {
 		health = health - damage;
 		System.out.println("Player Hit, health: " + health);
-		} 
+		}
+		
+		if (keyH.useItem == true) {
+			for (int i = 0; i < healItemList.size(); i++) {
+				if (healItemList.get(i) != null) {
+					//print / draw the item list
+					System.out.println("Index: " + i + ", Name: " + healItemList.get(i).itemName + ", Heal Amount: " + healItemList.get(i).healAmount);
+				}
+			}
+			
+			//Get the user selection for what item they want to use
+			health = health + healItemList.get(1).healAmount;
+			healItemList.remove(1);
+			if (health > maxHealth) {
+				health = maxHealth;
+			}
+			System.out.println("Player Heal, health: " + health);
+		}
 	}
 	
 	public void getPlayerImage() {
@@ -169,7 +199,7 @@ public class Player extends Entity{
 		if (health <= 0) {// if the player died
 			visible = false;
 			System.out.println("You died!");
-		}else { // if the player is still alive
+		} else { // if the player is still alive
 		switch (mode.toLowerCase()) {
 		case "defence":
 			visible = true;
