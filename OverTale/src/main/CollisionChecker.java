@@ -68,7 +68,6 @@ public class CollisionChecker {
 			}
 			
 			break;
-		
 		}
 	}
 	
@@ -79,7 +78,7 @@ public class CollisionChecker {
 				entity.damage = gp.projectileList.get(i).damage;
 				gp.projectileList.remove(i);
 				entity.hit = true;
-				System.out.println("hit");
+				//System.out.println("hit");
 			}else {
 				//System.out.println("miss");
 			}

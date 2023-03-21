@@ -15,7 +15,6 @@ public class Enemy extends Entity{
 	int numberOfProjectile;
 	int speedOfProjectile;
 	int HealthOfProjectile;
-
 	
 	public Enemy(GamePanel gp) {
 		this.modeString = "Attack";
