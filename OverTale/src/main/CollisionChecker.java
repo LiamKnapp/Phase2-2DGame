@@ -83,7 +83,6 @@ public class CollisionChecker {
 			}else {
 				//System.out.println("miss");
 			}
-		}
-			
+		}	
 	}
 }

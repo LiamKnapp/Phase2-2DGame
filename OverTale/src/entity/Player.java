@@ -113,21 +113,23 @@ public class Player extends Entity{
 					if (collisionOn == false) {
 						x += speed;
 					}
+					
+				}
+				spriteCounter++;
+				if(spriteCounter > 10){
+					if (spriteNum == 1) {
+						spriteNum = 2;
+					}
+					else if (spriteNum == 2) {
+						spriteNum = 1;
+					}
+					spriteCounter = 0;
 				}
 				hitBox.x = x + 8;
 				hitBox.y = y + 16;
 			}
 			
-			spriteCounter++;
-			if(spriteCounter > 10){
-				if (spriteNum == 1) {
-					spriteNum = 2;
-				}
-				else if (spriteNum == 2) {
-					spriteNum = 1;
-				}
-				spriteCounter = 0;
-			}
+			
 		}
 	}
 	public void setDefaultValues() {

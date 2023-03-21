@@ -35,7 +35,7 @@ public class Enemy extends Entity{
 		if(modeString == "Defence")
 		{
 			this.modeString = "Attack";
-		}else {this.modeString = "Defence";}
+		} else { this.modeString = "Defence";}
 		System.out.println("Switch enermy mode to " + this.modeString);
 	}
 	public void getRandomEnemy() {
@@ -101,7 +101,6 @@ public class Enemy extends Entity{
 			e.printStackTrace();
 		}
 	}
-	//test
 	
 	public void update(String mode) {
 		
@@ -119,7 +118,7 @@ public class Enemy extends Entity{
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + mode);
-		}
+			}
 		}
 	}
 	
@@ -163,8 +162,8 @@ public class Enemy extends Entity{
 				spriteNum = 1;
 			}
 			spriteCounter = 0;
-		}		
-	}
+			}		
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -202,6 +201,5 @@ public class Enemy extends Entity{
 		}
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 		}
-
 	}
 }

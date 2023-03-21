@@ -55,7 +55,6 @@ public class Projectile extends Entity{
 		int answerX = 4 + rn.nextInt(11 - 4 + 1);
 		int answerDirection = rn.nextInt(4) + 1;
 		
-		
 		switch (answerDirection) {
 		case 1:
 			direction = "up";
@@ -190,6 +189,6 @@ public class Projectile extends Entity{
 		//hit box for projectiles
 //		g2.setColor(Color.BLUE);
 //		g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
-	}
+		}
 	}
 }

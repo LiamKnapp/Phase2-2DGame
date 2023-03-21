@@ -1,6 +1,6 @@
 package main;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,9 +8,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entity.Enemy;
@@ -147,16 +144,16 @@ public class GamePanel extends JPanel implements Runnable {
 				//System.out.println("Users turn: select fight or item!");
 			} else {
 			
-			if (timer_2 >= 1000 * time_of_turn) {
-				player.SwitchMode();
-				enemy.SwitchMode();
-				System.out.println("Done " + time_of_turn + " second, Changing mode...");
-//				Button_Panel button_Panel = new Button_Panel(this);
-//				button_Panel.createSmallButton();
-				lastTime_timer2 = System.currentTimeMillis();
-				timer_2 = 0;
-				time_of_turn = RandomTurnTime();
-			}
+				if (timer_2 >= 1000 * time_of_turn) {
+					player.SwitchMode();
+					enemy.SwitchMode();
+					System.out.println("Done " + time_of_turn + " second, Changing mode...");
+//					Button_Panel button_Panel = new Button_Panel(this);
+//					button_Panel.createSmallButton();
+					lastTime_timer2 = System.currentTimeMillis();
+					timer_2 = 0;
+					time_of_turn = RandomTurnTime();
+				}
 			}
 			if (timer >= 1000000000) {
 				//System.out.println("FPS: " + drawCount);
@@ -228,7 +225,6 @@ public class GamePanel extends JPanel implements Runnable {
 			//stop game loop
 			//memento return to previous state or close game
 		}
-		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -238,11 +234,8 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) g;
 
 		tileM.draw(g2);
-
 		enemy.draw(g2);
-
 		player.draw(g2);
-		
 		
 		//for every projectile in the list draw it
 		for (int i = 0; i < projectileList.size(); i++) {
@@ -252,7 +245,6 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
-
 		g2.dispose();
 	}
 
