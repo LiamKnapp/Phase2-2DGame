@@ -75,7 +75,6 @@ public class Player extends Entity{
 	public void DefenceMode()
 	{
 		if(visible == true) {
-		speed = 4;
 		
 			hit = false;
 			gp.cChecker.checkProjectile(this);
@@ -266,8 +265,8 @@ public class Player extends Entity{
 //		g2.fillRect(hitBoxTile.x, hitBoxTile.y, hitBoxTile.width, hitBoxTile.height);
 		
 		//hit box for projectiles
-//		g2.setColor(Color.RED);
-//		g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
+		//g2.setColor(Color.RED);
+		//g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
 		
 	}
 	}

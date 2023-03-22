@@ -187,8 +187,8 @@ public class Projectile extends Entity{
 		g2.drawImage(image, x, y, tileSize, tileSize, null);
 		
 		//hit box for projectiles
-//		g2.setColor(Color.BLUE);
-//		g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
+		//g2.setColor(Color.BLUE);
+		//g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
 		}
 	}
 }

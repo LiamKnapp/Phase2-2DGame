@@ -71,7 +71,7 @@ public class Enemy extends Entity{
 			HealthOfProjectile = 105;
 			break;
 		case "Skeleton":
-			health = 12;
+			health = 10;
 			damage = 2;
 			numberOfProjectile = 7;
 			speedOfProjectile = 2;
