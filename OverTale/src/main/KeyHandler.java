@@ -52,6 +52,34 @@ public class KeyHandler implements KeyListener{
 			    }
 		 }
 		 
+		 if (gp.gameState == gp.deathState)
+		 {
+			    if (key == KeyEvent.VK_UP) {
+			        gp.ui.commandNum++;
+			        if (gp.ui.commandNum > 1)
+			        	gp.ui.commandNum = 0;
+			    }
+
+			    if (key == KeyEvent.VK_DOWN) {
+			        gp.ui.commandNum--;
+			        if (gp.ui.commandNum < 0)
+			        	gp.ui.commandNum = 1;
+			    }
+			    if (key == KeyEvent.VK_ENTER) {
+			    	switch(gp.ui.commandNum)
+			    	{
+			    	case 0:
+			    		gp.resetGame();
+			    		gp.gameState = gp.playState;
+			    		break;
+			    	case 1:
+			    		break;
+			    	default:
+			    		break;
+			    	}
+			    }
+		 }
+		 
 		 //PLAY STATE
 		 if (gp.gameState == gp.playState)
 		 {

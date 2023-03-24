@@ -279,4 +279,12 @@ public class GamePanel extends JPanel implements Runnable {
 		sound.checkVolume();
 		sound.play();
 	}
+	
+	public void resetGame() {
+		projectileList = new ArrayList<Projectile>();
+		enemy = new Enemy(this);
+		player = new Player(this, keyH);
+		
+		this.surviveCounter = 0;
+	}
 }

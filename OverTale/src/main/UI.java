@@ -55,16 +55,49 @@ public class UI {
 		}
 		if (gp.gameState == gp.deathState)
 		{
-			String text = "DEATH";
-		
-			g2.setFont(new Font(customFont.getName(), Font.BOLD, 60));
-			g2.setColor(Color.red);
-			
-			g2.drawString("DEATH", getXforCenteredText(text, g2), gp.screenHeight/2);
+			drawDeathScreen(g2);
 		}
 		if (gp.gameState == gp.titleState)
 		{
 			drawTitleScreen(g2);
+		}
+	}
+
+	private void drawDeathScreen(Graphics2D g2) {
+		int y = gp.tileSize*3;
+		
+		String text = "DEATH";
+		
+		g2.setFont(new Font(customFont.getName(), Font.BOLD, 60));
+		
+		//Shadow
+		g2.setColor(Color.red);
+		
+		g2.drawString("DEATH", getXforCenteredText(text, g2)+3, y+3);
+		
+		//Death line
+		g2.setColor(Color.red);
+		
+		g2.drawString("DEATH", getXforCenteredText(text, g2), y);
+		
+		//OPTIONS
+		g2.setFont(new Font(customFont.getName(), Font.PLAIN, 25));
+		g2.setColor(Color.white);
+		
+		text = "NEW GAME";
+		int x = getXforCenteredText(text, g2);
+		
+		g2.drawString(text, x, y += gp.tileSize*3);
+		if (commandNum == 0)
+		{
+			g2.drawString(">", x - gp.tileSize, y);
+		}
+		
+		text = "LOAD GAME";
+		g2.drawString(text, x, y += gp.tileSize);
+		if (commandNum == 1)
+		{
+			g2.drawString(">", x - gp.tileSize, y);
 		}
 	}
 	
