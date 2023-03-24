@@ -23,7 +23,38 @@ public class KeyHandler implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		 int key = e.getKeyCode();
+		 
+		 //TITLE STATE
+		 if(gp.gameState == gp.titleState)
+		 {
+			    if (key == KeyEvent.VK_UP) {
+			        gp.ui.commandNum++;
+			        if (gp.ui.commandNum > 1)
+			        	gp.ui.commandNum = 0;
+			    }
 
+			    if (key == KeyEvent.VK_DOWN) {
+			        gp.ui.commandNum--;
+			        if (gp.ui.commandNum < 0)
+			        	gp.ui.commandNum = 1;
+			    }
+			    if (key == KeyEvent.VK_ENTER) {
+			    	switch(gp.ui.commandNum)
+			    	{
+			    	case 0:
+			    		gp.gameState = gp.playState;
+			    		break;
+			    	case 1:
+			    		break;
+			    	default:
+			    		break;
+			    	}
+			    }
+		 }
+		 
+		 //PLAY STATE
+		 if (gp.gameState == gp.playState)
+		 {
 		    if (key == KeyEvent.VK_LEFT) {
 		    	leftPressed = true;
 		    }
@@ -47,16 +78,17 @@ public class KeyHandler implements KeyListener{
 //		    }
 		    
 		    if (gp.attackMode == true) {
-		    //if is the attack turn
-		    if (key == KeyEvent.VK_ENTER) {
-		        attackEnemy = true;
+		    	//if is the attack turn
+		    	if (key == KeyEvent.VK_ENTER) {
+		    		attackEnemy = true;
+		    	}
+		    	
+		    	//if is the attack turn
+		    	if (key == KeyEvent.VK_V) {
+		    		useItem = true;
+		    	}
 		    }
-		    
-		    //if is the attack turn
-		    if (key == KeyEvent.VK_V) {
-		        useItem = true;
-		    }
-		    }
+		 }
 	}
 	
 	@Override

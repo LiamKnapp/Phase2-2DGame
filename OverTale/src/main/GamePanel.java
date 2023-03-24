@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean attackMode = false;
 	public boolean gameOver = false;
 	int surviveCounter = 0;
+	public UI ui = new UI(this);
 	
 
 	// ENTITY / OBJECT
@@ -44,6 +45,12 @@ public class GamePanel extends JPanel implements Runnable {
 	Player player = new Player(this, keyH);
 	public boolean enemytakeDMG = false;
 	public boolean playerHeal = false;
+	
+	// GAME STATE 
+	public int gameState;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int deathState = 2;
 	
 	public GamePanel() {
 
@@ -68,6 +75,8 @@ public class GamePanel extends JPanel implements Runnable {
 			playMusic(1);
 			break;
 		}
+		
+		gameState = titleState;
 	}
 
 	public void startGameThread() {
@@ -102,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable {
 		int drawCount = 0;
 
 		while (gameThread != null) {
-
+			
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime) / drawInterval;
 			timer += (currentTime - lastTime);
@@ -155,6 +164,7 @@ public class GamePanel extends JPanel implements Runnable {
 					time_of_turn = RandomTurnTime();
 				}
 			}
+			
 			if (timer >= 1000000000) {
 				//System.out.println("FPS: " + drawCount);
 				getCurrentMode();
@@ -185,46 +195,58 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 		
-		this.ApplyMode(enemy, player);
-		
-		if (attackMode == true) {
+		if (gameState == playState) {
+			this.ApplyMode(enemy, player);
+			
+			if (attackMode == true) {
+				//update the hp of the projectile to draw it for a certain distance
+				for (int i = 0; i < projectileList.size(); i++) {
+					if (projectileList.get(i) != null) {
+						if(projectileList.get(i).health <= 0) {
+							projectileList.remove(i);
+						}
+					}
+				}
+			}
 			//update the hp of the projectile to draw it for a certain distance
 			for (int i = 0; i < projectileList.size(); i++) {
 				if (projectileList.get(i) != null) {
+					if (projectileList.get(i).health > 0) {
+						projectileList.get(i).update();
+					}
 					if(projectileList.get(i).health <= 0) {
 						projectileList.remove(i);
 					}
 				}
 			}
-		}
-		//update the hp of the projectile to draw it for a certain distance
-		for (int i = 0; i < projectileList.size(); i++) {
-			if (projectileList.get(i) != null) {
-				if (projectileList.get(i).health > 0) {
-					projectileList.get(i).update();
-				}
-				if(projectileList.get(i).health <= 0) {
-					projectileList.remove(i);
-				}
+			
+			if (enemy.health <= 0) {
+				enemy = new Enemy(this);
+				surviveCounter = surviveCounter + 1;
+				System.out.println("Round Complete!");
+				System.out.println("Survived Rounds: " + surviveCounter);
+				System.out.println("New Enemy Appeared!!!");
+			}
+			
+			if (player.health <= 0) {
+				System.out.println("Round Failed!");
+				System.out.println("Survived Rounds: " + surviveCounter);
+				gameState = deathState;
+				//call player class deconstructor 
+				//call enemy class deconstructor
+				//stop game loop
+				//memento return to previous state or close game
 			}
 		}
-		
-		if (enemy.health <= 0) {
-			enemy = new Enemy(this);
-			surviveCounter = surviveCounter + 1;
-			System.out.println("Round Complete!");
-			System.out.println("Survived Rounds: " + surviveCounter);
-			System.out.println("New Enemy Appeared!!!");
+		if (gameState == deathState)
+		{
+
+		}
+		if (gameState == titleState)
+		{
+			
 		}
 		
-		if (player.health <= 0) {
-			System.out.println("Round Failed!");
-			System.out.println("Survived Rounds: " + surviveCounter);
-			//call player class deconstructor 
-			//call enemy class deconstructor
-			//stop game loop
-			//memento return to previous state or close game
-		}
 	}
 
 	public void paintComponent(Graphics g) {
@@ -232,19 +254,9 @@ public class GamePanel extends JPanel implements Runnable {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
-		tileM.draw(g2);
-		enemy.draw(g2);
-		player.draw(g2);
 		
-		//for every projectile in the list draw it
-		for (int i = 0; i < projectileList.size(); i++) {
-			if (projectileList.get(i) != null) {
-				if (projectileList.get(i).health > 0) {
-					projectileList.get(i).draw(g2);
-				}
-			}
-		}
+		ui.draw(g2);
+		
 		g2.dispose();
 	}
 

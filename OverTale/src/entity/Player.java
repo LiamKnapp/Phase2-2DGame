@@ -195,25 +195,27 @@ public class Player extends Entity{
 	}
 	
 	public void update(String mode) {
-		
-		
-		if (health <= 0) {// if the player died
+		if (health <= 0) 
+		{	// if the player died
 			visible = false;
 			System.out.println("You died!");
-		} else { // if the player is still alive
-		switch (mode.toLowerCase()) {
-		case "defence":
-			visible = true;
-    		DefenceMode();
-			break;
-		case "attack" :
-			visible = false;
-			// Cant run
-			AttackMode();
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + mode);
-		}
+		} 
+		else 
+		{ 	// if the player is still alive
+			switch (mode.toLowerCase()) 
+			{
+			case "defence":
+				visible = true;
+				DefenceMode();
+				break;
+			case "attack" :
+				visible = false;
+				// Cant run
+				AttackMode();
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + mode);
+			}
 		}
 	}
 	
