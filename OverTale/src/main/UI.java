@@ -94,6 +94,7 @@ public class UI {
 		}
 		
 		text = "LOAD GAME";
+
 		g2.drawString(text, x, y += gp.tileSize);
 		if (commandNum == 1)
 		{
@@ -138,6 +139,7 @@ public class UI {
 		}
 		
 		text = "LOAD GAME";
+
 		g2.drawString(text, x, y += gp.tileSize);
 		if (commandNum == 1)
 		{
@@ -203,11 +205,78 @@ public class UI {
 			//Shadow 
 			g2.setFont(currentTurnUI);
 			g2.setColor(Color.black);
+			
 			g2.drawString("YOUR TURN", 293, 42);
 			
 			//Line
 			g2.setColor(Color.white);
 			g2.drawString("YOUR TURN", 290, 40);
+			
+
+			int x = gp.screenWidth/2;
+			int y = gp.screenHeight/2 + gp.tileSize;
+			
+			g2.setFont(new Font(customFont.getName(), Font.PLAIN, 25));
+			
+			if (commandNum == 1)
+			{
+				//BOX SHADOW
+				g2.setColor(Color.gray);
+				g2.fillRect(x + gp.tileSize+3, y+3, 200, 100);
+				
+				//OPTION BOXES
+				g2.setColor(new Color(215, 199, 150));
+				
+				g2.fillRect(x + gp.tileSize*1, y, 200, 100);
+				
+				g2.setColor(new Color(255, 229, 180));
+				g2.fillRect(x - gp.tileSize*5-3, y, 200, 100);
+				
+				//LINE SHADOW
+				y = y + gp.tileSize + 10;
+				String text = "HEAL";
+				x = getXforCenteredText(text, g2) + gp.tileSize;
+				g2.setColor(Color.gray);
+				g2.drawString(text, x + gp.tileSize*2+3, y+3);
+				
+				//LINE
+				g2.setColor(Color.black);
+				g2.drawString(text, x + gp.tileSize*2, y);
+				
+				text = "ATTACK";
+				x = getXforCenteredText(text, g2) + gp.tileSize;
+				g2.drawString(text, x - gp.tileSize*4, y);
+			}
+			
+			if (commandNum == 0)
+			{
+				//BOX SHADOW 
+				g2.setColor(Color.gray);
+				g2.fillRect(x - gp.tileSize*5, y+3, 200, 100);
+				
+				//OPTION BOXES
+				g2.setColor(new Color(215, 199, 150));
+				g2.fillRect(x - gp.tileSize*5-3, y, 200, 100);
+				
+				g2.setColor(new Color(255, 229, 180));
+				g2.fillRect(x + gp.tileSize*1, y, 200, 100);
+				
+				//LINE SHADOW
+				y = y+ gp.tileSize+10;
+				String text = "ATTACK";
+				x = getXforCenteredText(text, g2) + gp.tileSize;
+				
+				g2.setColor(Color.gray);
+				g2.drawString(text, x - gp.tileSize*4+3, y+3);
+				
+				//LINE
+				g2.setColor(Color.black);
+				g2.drawString(text, x - gp.tileSize*4, y);
+				
+				text = "HEAL";
+				x = getXforCenteredText(text, g2) + gp.tileSize;
+				g2.drawString(text, x + gp.tileSize*2, y);
+			}
 		}
 	}
 }

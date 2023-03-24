@@ -83,7 +83,7 @@ public class KeyHandler implements KeyListener{
 		 //PLAY STATE
 		 if (gp.gameState == gp.playState)
 		 {
-		    if (key == KeyEvent.VK_LEFT) {
+			if (key == KeyEvent.VK_LEFT) {
 		    	leftPressed = true;
 		    }
 
@@ -106,15 +106,33 @@ public class KeyHandler implements KeyListener{
 //		    }
 		    
 		    if (gp.attackMode == true) {
+		    	
+			    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_UP) {
+			        gp.ui.commandNum++;
+			        if (gp.ui.commandNum > 1)
+			        	gp.ui.commandNum = 0;
+			    }
+
+			    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_DOWN) {
+			        gp.ui.commandNum--;
+			        if (gp.ui.commandNum < 0)
+			        	gp.ui.commandNum = 1;
+			    }
+			    
 		    	//if is the attack turn
 		    	if (key == KeyEvent.VK_ENTER) {
-		    		attackEnemy = true;
-		    	}
-		    	
-		    	//if is the attack turn
-		    	if (key == KeyEvent.VK_V) {
-		    		useItem = true;
-		    	}
+			    	switch(gp.ui.commandNum)
+			    	{
+			    	case 0:
+			    		attackEnemy = true;
+			    		break;
+			    	case 1:
+			    		useItem = true;
+			    		break;
+			    	default:
+			    		break;
+			    	}
+			    }
 		    }
 		 }
 	}
@@ -142,17 +160,12 @@ public class KeyHandler implements KeyListener{
 //	        shotPressed = false;
 //	    }
 	    
-	    if (gp.attackMode == true) {
-	    //if is the attack turn
-	    if (key == KeyEvent.VK_ENTER) {
-	        attackEnemy = false;
-	    }
-	    
-	    //if is the attack turn
-	    if (key == KeyEvent.VK_V) {
-	        useItem = false;
-	    }
-	    }
+    	if (key == KeyEvent.VK_ENTER) {
+    		if(gp.ui.commandNum == 0)
+    			attackEnemy = false;
+    		else
+    			useItem = false;
+    	}
 		
 	}
 
