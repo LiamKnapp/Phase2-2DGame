@@ -241,10 +241,10 @@ public class KeyHandler implements KeyListener{
 		    	if (key == KeyEvent.VK_ENTER) {
 			    	switch(gp.ui.commandNum)
 			    	{
-			    	case 5:
+			    	case 0:
 			    		attackEnemy = true;
 			    		break;
-			    	case 6:
+			    	case 1:
 			    		useItem = true;
 			    		break;
 			    	default:
