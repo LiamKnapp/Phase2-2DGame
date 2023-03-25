@@ -100,7 +100,6 @@ public class UI {
 			g2.drawString(text, x, y += gp.tileSize);
 		}
 		
-		System.out.println("Command num: " + commandNum);
 		text = "BACK TO MENU";
 		x = getXforCenteredText(text, g2);
 		y = gp.tileSize*6;

@@ -61,6 +61,7 @@ public class KeyHandler implements KeyListener{
 				    	 break;
 				     case 1:
 				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     }
@@ -88,10 +89,12 @@ public class KeyHandler implements KeyListener{
 				    	 break;
 				     case 1:
 				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     case 2:
 				    	 gp.setMemento(gp.careTaker.getMemento(1));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     }
@@ -119,14 +122,17 @@ public class KeyHandler implements KeyListener{
 				    	 break;
 				     case 1:
 				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     case 2:
 				    	 gp.setMemento(gp.careTaker.getMemento(1));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     case 3:
 				    	 gp.setMemento(gp.careTaker.getMemento(2));
+				    	 gp.turnSwitch = true;
 				    	 gp.gameState = gp.playState;
 				    	 break;
 				     }
@@ -154,6 +160,7 @@ public class KeyHandler implements KeyListener{
 		    	{
 		    	case 0:
 					gp.ui.commandNum = -1;
+					gp.turnSwitch = true;
 		    		gp.gameState = gp.playState;
 		    		break;
 		    	case 1:
@@ -184,8 +191,9 @@ public class KeyHandler implements KeyListener{
 		    	switch(gp.ui.commandNum)
 		    	{
 		    	case 0:
-					 gp.ui.commandNum = -1;
+					gp.ui.commandNum = -1;
 		    		gp.resetGame();
+		    		gp.turnSwitch = true;
 		    		gp.gameState = gp.playState;
 		    		break;
 		    	case 1:

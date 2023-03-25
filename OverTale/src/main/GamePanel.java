@@ -57,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int playState = 1;
 	public final int deathState = 2;
 	public final int loadState = 3;
+	boolean turnSwitch = false;
 	
 	public GamePanel() {
 
@@ -164,15 +165,19 @@ public class GamePanel extends JPanel implements Runnable {
 				//System.out.println("Users turn: select fight or item!");
 			} else {
 			
-				if (timer_2 >= 1000 * time_of_turn) {
-					player.SwitchMode();
-					enemy.SwitchMode();
-					System.out.println("Done " + time_of_turn + " second, Changing mode...");
-//					Button_Panel button_Panel = new Button_Panel(this);
-//					button_Panel.createSmallButton();
-					lastTime_timer2 = System.currentTimeMillis();
-					timer_2 = 0;
-					time_of_turn = RandomTurnTime();
+				if (turnSwitch == true)
+				{
+					if (timer_2 >= 1000 * time_of_turn) {
+						ui.commandNum = 0;
+						player.SwitchMode();
+						enemy.SwitchMode();
+						System.out.println("Done " + time_of_turn + " second, Changing mode...");
+	//					Button_Panel button_Panel = new Button_Panel(this);
+	//					button_Panel.createSmallButton();
+						lastTime_timer2 = System.currentTimeMillis();
+						timer_2 = 0;
+						time_of_turn = RandomTurnTime();
+					}
 				}
 			}
 			
@@ -246,6 +251,7 @@ public class GamePanel extends JPanel implements Runnable {
 			if (player.health <= 0) {
 				System.out.println("Round Failed!");
 				System.out.println("Survived Rounds: " + surviveCounter);
+				turnSwitch = false;
 				gameState = deathState;
 				//call player class deconstructor 
 				//call enemy class deconstructor
