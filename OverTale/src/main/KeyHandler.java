@@ -35,6 +35,7 @@ public class KeyHandler implements KeyListener{
 			 case 0:
 				 gp.ui.commandNum = 0;
 				 if (key == KeyEvent.VK_ENTER) {
+					 gp.ui.commandNum = -1;
 			    	 gp.gameState = gp.titleState;
 				 }
 				 break;
@@ -55,6 +56,7 @@ public class KeyHandler implements KeyListener{
 					 switch(gp.ui.commandNum)
 				     {
 				     case 0:
+						 gp.ui.commandNum = -1;
 					     gp.gameState = gp.titleState;
 				    	 break;
 				     case 1:
@@ -81,6 +83,7 @@ public class KeyHandler implements KeyListener{
 					 switch(gp.ui.commandNum)
 				     {
 				     case 0:
+						 gp.ui.commandNum = -1;
 					     gp.gameState = gp.titleState;
 				    	 break;
 				     case 1:
@@ -111,6 +114,7 @@ public class KeyHandler implements KeyListener{
 					 switch(gp.ui.commandNum)
 				     {
 				     case 0:
+						 gp.ui.commandNum = -1;
 					     gp.gameState = gp.titleState;
 				    	 break;
 				     case 1:
@@ -149,6 +153,7 @@ public class KeyHandler implements KeyListener{
 		    	switch(gp.ui.commandNum)
 		    	{
 		    	case 0:
+					gp.ui.commandNum = -1;
 		    		gp.gameState = gp.playState;
 		    		break;
 		    	case 1:
@@ -179,6 +184,7 @@ public class KeyHandler implements KeyListener{
 		    	switch(gp.ui.commandNum)
 		    	{
 		    	case 0:
+					 gp.ui.commandNum = -1;
 		    		gp.resetGame();
 		    		gp.gameState = gp.playState;
 		    		break;
@@ -235,10 +241,10 @@ public class KeyHandler implements KeyListener{
 		    	if (key == KeyEvent.VK_ENTER) {
 			    	switch(gp.ui.commandNum)
 			    	{
-			    	case 0:
+			    	case 5:
 			    		attackEnemy = true;
 			    		break;
-			    	case 1:
+			    	case 6:
 			    		useItem = true;
 			    		break;
 			    	default:
