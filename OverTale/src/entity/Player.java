@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -270,6 +271,23 @@ public class Player extends Entity{
 		//g2.setColor(Color.RED);
 		//g2.fillRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);  
 		
+		}
 	}
+	
+	public ArrayList<HealItem> GetPlayerHealItems() {
+		return this.healItemList;
+	}
+	public void SetModeString(String playerModeString) {
+		this.modeString = playerModeString;
+	}
+	public void setHealItemList(ArrayList<String> healNameList, ArrayList<Integer> healAmountList) {
+		
+		HealItem healItem;
+		
+		for (int i = 0; i < this.healItemList.size(); i++)
+		{
+			healItem = new HealItem(healAmountList.get(i), healNameList.get(i));
+			this.healItemList.set(i, healItem);
+		}
 	}
 }

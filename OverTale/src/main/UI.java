@@ -61,6 +61,66 @@ public class UI {
 		{
 			drawTitleScreen(g2);
 		}
+		if (gp.gameState == gp.loadState)
+		{
+			drawLoadState(g2);
+		}
+	}
+
+	private void drawLoadState(Graphics2D g2) {
+		int y = gp.tileSize*3;
+		
+		String text = "LOAD SAVE";
+		
+		g2.setFont(new Font(customFont.getName(), Font.BOLD, 60));
+		
+		//Shadow
+		g2.setColor(Color.gray);
+		
+		g2.drawString(text, getXforCenteredText(text, g2)+3, y+3);
+		
+		//Death line
+		g2.setColor(Color.white);
+		
+		g2.drawString(text, getXforCenteredText(text, g2), y);
+		
+		//OPTIONS
+		g2.setFont(new Font(customFont.getName(), Font.PLAIN, 25));
+		int x;
+		y += gp.tileSize*2;
+		
+		text = "BACK TO MENU";
+		x = getXforCenteredText(text, g2);
+		g2.drawString(text, x, y += gp.tileSize);
+		
+		for (int i = 0; i < gp.careTaker.GetNumberOfMementos(); i++)
+		{
+			text = "SAVE " + (i + 1);
+			x = getXforCenteredText(text, g2);
+			g2.drawString(text, x, y += gp.tileSize);
+		}
+		
+		System.out.println("Command num: " + commandNum);
+		text = "BACK TO MENU";
+		x = getXforCenteredText(text, g2);
+		y = gp.tileSize*6;
+		switch (commandNum)
+		{
+		case 3:
+			g2.drawString(">", x - gp.tileSize, y + gp.tileSize*3);
+			break;
+		case 2:
+			g2.drawString(">", x - gp.tileSize, y + gp.tileSize*2);
+			break;
+		case 1:
+			g2.drawString(">", x - gp.tileSize, y + gp.tileSize);
+			break;
+		case 0:
+			g2.drawString(">", x - gp.tileSize, y);
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void drawDeathScreen(Graphics2D g2) {
@@ -71,14 +131,14 @@ public class UI {
 		g2.setFont(new Font(customFont.getName(), Font.BOLD, 60));
 		
 		//Shadow
-		g2.setColor(Color.red);
+		g2.setColor(Color.gray);
 		
-		g2.drawString("DEATH", getXforCenteredText(text, g2)+3, y+3);
+		g2.drawString(text, getXforCenteredText(text, g2)+3, y+3);
 		
 		//Death line
 		g2.setColor(Color.red);
 		
-		g2.drawString("DEATH", getXforCenteredText(text, g2), y);
+		g2.drawString(text, getXforCenteredText(text, g2), y);
 		
 		//OPTIONS
 		g2.setFont(new Font(customFont.getName(), Font.PLAIN, 25));

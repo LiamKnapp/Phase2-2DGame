@@ -2,7 +2,9 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.TimeUnit;
 
+import data.Memento;
 import entity.Projectile;
 
 public class KeyHandler implements KeyListener{
@@ -24,60 +26,170 @@ public class KeyHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		 int key = e.getKeyCode();
 		 
+		 
+		 //LOAD SAVE MENU STATE
+		 if(gp.gameState == gp.loadState)
+		 {
+			 switch (gp.careTaker.GetNumberOfMementos())
+			 {
+			 case 0:
+				 gp.ui.commandNum = 0;
+				 if (key == KeyEvent.VK_ENTER) {
+			    	 gp.gameState = gp.titleState;
+				 }
+				 break;
+			 case 1:
+				 if (key == KeyEvent.VK_UP) {
+					 gp.ui.commandNum++;
+				     if (gp.ui.commandNum > 1)
+				    	 gp.ui.commandNum = 0;
+				 }
+	
+				 if (key == KeyEvent.VK_DOWN) {
+				     gp.ui.commandNum--;
+				     if (gp.ui.commandNum < 0)
+				        gp.ui.commandNum = 1;
+				 }
+				 
+				 if (key == KeyEvent.VK_ENTER) {
+					 switch(gp.ui.commandNum)
+				     {
+				     case 0:
+					     gp.gameState = gp.titleState;
+				    	 break;
+				     case 1:
+				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     }
+				 }
+				 break;
+			 case 2:
+				 if (key == KeyEvent.VK_UP) {
+					 gp.ui.commandNum++;
+				     if (gp.ui.commandNum > 2)
+				    	 gp.ui.commandNum = 0;
+				 }
+	
+				 if (key == KeyEvent.VK_DOWN) {
+				     gp.ui.commandNum--;
+				     if (gp.ui.commandNum < 0)
+				        gp.ui.commandNum = 2;
+				 }
+				 
+				 if (key == KeyEvent.VK_ENTER) {
+					 switch(gp.ui.commandNum)
+				     {
+				     case 0:
+					     gp.gameState = gp.titleState;
+				    	 break;
+				     case 1:
+				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     case 2:
+				    	 gp.setMemento(gp.careTaker.getMemento(1));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     }
+				 }
+				 break;
+			 case 3:
+				 if (key == KeyEvent.VK_UP) {
+					 gp.ui.commandNum++;
+				     if (gp.ui.commandNum > 3)
+				    	 gp.ui.commandNum = 0;
+				 }
+	
+				 if (key == KeyEvent.VK_DOWN) {
+				     gp.ui.commandNum--;
+				     if (gp.ui.commandNum < 0)
+				        gp.ui.commandNum = 3;
+				 }
+				 
+				 if (key == KeyEvent.VK_ENTER) {
+					 switch(gp.ui.commandNum)
+				     {
+				     case 0:
+					     gp.gameState = gp.titleState;
+				    	 break;
+				     case 1:
+				    	 gp.setMemento(gp.careTaker.getMemento(0));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     case 2:
+				    	 gp.setMemento(gp.careTaker.getMemento(1));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     case 3:
+				    	 gp.setMemento(gp.careTaker.getMemento(2));
+				    	 gp.gameState = gp.playState;
+				    	 break;
+				     }
+				 }
+				 break;
+			 }
+		 }
+		
 		 //TITLE STATE
 		 if(gp.gameState == gp.titleState)
 		 {
-			    if (key == KeyEvent.VK_UP) {
-			        gp.ui.commandNum++;
-			        if (gp.ui.commandNum > 1)
-			        	gp.ui.commandNum = 0;
-			    }
+		    if (key == KeyEvent.VK_UP) {
+		        gp.ui.commandNum++;
+		        if (gp.ui.commandNum > 1)
+		        	gp.ui.commandNum = 0;
+		    }
 
-			    if (key == KeyEvent.VK_DOWN) {
-			        gp.ui.commandNum--;
-			        if (gp.ui.commandNum < 0)
-			        	gp.ui.commandNum = 1;
-			    }
-			    if (key == KeyEvent.VK_ENTER) {
-			    	switch(gp.ui.commandNum)
-			    	{
-			    	case 0:
-			    		gp.gameState = gp.playState;
-			    		break;
-			    	case 1:
-			    		break;
-			    	default:
-			    		break;
-			    	}
-			    }
+		    if (key == KeyEvent.VK_DOWN) {
+		        gp.ui.commandNum--;
+		        if (gp.ui.commandNum < 0)
+		        	gp.ui.commandNum = 1;
+		    }
+		    if (key == KeyEvent.VK_ENTER) {
+		    	switch(gp.ui.commandNum)
+		    	{
+		    	case 0:
+		    		gp.gameState = gp.playState;
+		    		break;
+		    	case 1:
+		    		gp.ui.commandNum = 0;
+		    		gp.gameState = gp.loadState;
+		    		break;
+		    	default:
+		    		break;
+		    	}
+		    }
 		 }
 		 
+		 //DEATH STATE
 		 if (gp.gameState == gp.deathState)
 		 {
-			    if (key == KeyEvent.VK_UP) {
-			        gp.ui.commandNum++;
-			        if (gp.ui.commandNum > 1)
-			        	gp.ui.commandNum = 0;
-			    }
+		    if (key == KeyEvent.VK_UP) {
+		        gp.ui.commandNum++;
+		        if (gp.ui.commandNum > 1)
+		        	gp.ui.commandNum = 0;
+		    }
 
-			    if (key == KeyEvent.VK_DOWN) {
-			        gp.ui.commandNum--;
-			        if (gp.ui.commandNum < 0)
-			        	gp.ui.commandNum = 1;
-			    }
-			    if (key == KeyEvent.VK_ENTER) {
-			    	switch(gp.ui.commandNum)
-			    	{
-			    	case 0:
-			    		gp.resetGame();
-			    		gp.gameState = gp.playState;
-			    		break;
-			    	case 1:
-			    		break;
-			    	default:
-			    		break;
-			    	}
-			    }
+		    if (key == KeyEvent.VK_DOWN) {
+		        gp.ui.commandNum--;
+		        if (gp.ui.commandNum < 0)
+		        	gp.ui.commandNum = 1;
+		    }
+		    if (key == KeyEvent.VK_ENTER) {
+		    	switch(gp.ui.commandNum)
+		    	{
+		    	case 0:
+		    		gp.resetGame();
+		    		gp.gameState = gp.playState;
+		    		break;
+		    	case 1:
+		    		gp.ui.commandNum = 0;
+		    		gp.gameState = gp.loadState;
+		    		break;
+		    	default:
+		    		break;
+		    	}
+		    }
 		 }
 		 
 		 //PLAY STATE
@@ -112,7 +224,7 @@ public class KeyHandler implements KeyListener{
 			        if (gp.ui.commandNum > 1)
 			        	gp.ui.commandNum = 0;
 			    }
-
+	
 			    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_DOWN) {
 			        gp.ui.commandNum--;
 			        if (gp.ui.commandNum < 0)
@@ -166,7 +278,5 @@ public class KeyHandler implements KeyListener{
     		else
     			useItem = false;
     	}
-		
 	}
-
 }

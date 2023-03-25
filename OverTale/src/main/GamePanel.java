@@ -2,6 +2,7 @@ package main;
 
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +14,10 @@ import javax.swing.JPanel;
 import entity.Enemy;
 import entity.Player;
 import entity.Projectile;
+import objects.HealItem;
 import tile.TileManager;
+import data.CareTaker;
+import data.Memento;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -37,7 +41,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean gameOver = false;
 	int surviveCounter = 0;
 	public UI ui = new UI(this);
-	
+	private GamePanel state;
+	public CareTaker careTaker = new CareTaker();
 
 	// ENTITY / OBJECT
 	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
@@ -51,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int titleState = 0;
 	public final int playState = 1;
 	public final int deathState = 2;
+	public final int loadState = 3;
 	
 	public GamePanel() {
 
@@ -111,6 +117,11 @@ public class GamePanel extends JPanel implements Runnable {
 		int drawCount = 0;
 
 		while (gameThread != null) {
+			
+			/*if (gameState != playState)
+			{
+				continue;
+			}*/
 			
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime) / drawInterval;
@@ -223,6 +234,10 @@ public class GamePanel extends JPanel implements Runnable {
 			if (enemy.health <= 0) {
 				enemy = new Enemy(this);
 				surviveCounter = surviveCounter + 1;
+				
+				Memento memento = new Memento(this);
+				careTaker.addMemento(memento);
+				
 				System.out.println("Round Complete!");
 				System.out.println("Survived Rounds: " + surviveCounter);
 				System.out.println("New Enemy Appeared!!!");
@@ -238,15 +253,6 @@ public class GamePanel extends JPanel implements Runnable {
 				//memento return to previous state or close game
 			}
 		}
-		if (gameState == deathState)
-		{
-
-		}
-		if (gameState == titleState)
-		{
-			
-		}
-		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -287,4 +293,50 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		this.surviveCounter = 0;
 	}
+	
+	public int GetPlayerHealth() {
+		return player.health;
+	}
+	
+	public String GetPlayerMode() {
+		return player.GetMode();
+	}
+	
+	public int GetEnemyHealth() {
+		return enemy.health;
+	}
+	
+	public String GetEnemyMode() {
+		return enemy.GetMode();
+	}
+	
+	public String GetEnemyType() {
+		return enemy.enemyName;
+	}
+	
+	public int GetCurrentRound() {
+		return this.surviveCounter;
+	}
+	
+	public ArrayList<HealItem> GetHealItemList () {
+		return player.GetPlayerHealItems();
+	}
+	
+	public void setMemento(Memento memento) {
+		//Player
+		player.health = memento.getPlayerHealth();
+		player.SetModeString(memento.getPlayerModeString());
+		
+		//Enemy
+		enemy.health = memento.getEnemyHealth();
+		enemy.SetModeString(memento.getEnemyModeString());;
+		enemy.enemyName = memento.getEnemyName();
+		
+		//Round counter
+		surviveCounter = memento.getSurviveCounter();
+		
+		//Player items
+		player.setHealItemList(memento.getHealNameList(), memento.getHealAmountList());
+	}
+	
 }
