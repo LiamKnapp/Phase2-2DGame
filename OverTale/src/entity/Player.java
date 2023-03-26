@@ -138,11 +138,11 @@ public class Player extends Entity{
 		speed = 4;
 		health = 12;
 		maxHealth = health;
-		healItems = 8;
+		healItems = 1;
 		itemIndex = healItems;
 		
 		//fill the item list with healing items
-		for (int i = 0; i < healItems; i++) {
+		for (int i = 0; i <= healItems; i++) {
 		HealItem hpPotion = new HealItem(4, "Small Hp Potion");
 		healItemList.add(hpPotion);
 		}
@@ -160,14 +160,17 @@ public class Player extends Entity{
 		}
 		
 		if (keyH.useItem == true) {
-			itemIndex = itemIndex - 1;
+			if (healItemList.isEmpty() == false) {
 			health = health + healItemList.get(itemIndex).healAmount;
 			healItemList.remove(itemIndex);
+			itemIndex = itemIndex - 1;
 			if (health > maxHealth) {
 				health = maxHealth;
 			}
 			System.out.println("Player Heal, health: " + health);
-			System.out.println("Potions: " + healItemList.size());
+			}else {
+			System.out.println("No Items left! WATCH OUT!!" + health);
+			}
 			keyH.useItem = false;
 		}
 	}
