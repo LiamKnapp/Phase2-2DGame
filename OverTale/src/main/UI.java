@@ -171,8 +171,8 @@ public class UI {
 		g2.setColor(new Color(0, 0, 0));
 		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
-		String text = "Try to beat that";
-		String textCont = "slime lol";
+		String text = "OverTale";
+		String textCont = "Group 12";
 		
 		g2.setFont(new Font(customFont.getName(), Font.BOLD, 35));
 		
