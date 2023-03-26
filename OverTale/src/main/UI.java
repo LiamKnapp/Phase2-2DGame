@@ -14,6 +14,7 @@ public class UI {
 	Font healthUI;
 	Font enemyHealthUI;
 	Font currentTurnUI;
+	Font potionsUI;
 	
 	Font deathUI;
 	
@@ -39,6 +40,8 @@ public class UI {
     		currentTurnUI = new Font(customFont.getName(), Font.BOLD, 22);
     		
     		deathUI = new Font(customFont.getName(), Font.BOLD, 60);
+    		
+    		potionsUI = new Font(customFont.getName(), Font.BOLD, 17);
     		
 		} 
         catch (FontFormatException | IOException e) {
@@ -237,6 +240,9 @@ public class UI {
 		g2.setFont(healthUI);
 		g2.drawString("health = " + gp.player.health, 38, 92);
 		
+		g2.setFont(potionsUI);
+		g2.drawString("Potions = " + gp.player.GetPlayerHealItems().size(), 38, 132);
+		
 		g2.setFont(enemyHealthUI);
 		g2.drawString("BOSS: " + gp.enemy.health, 293, 227);
 		
@@ -248,6 +254,10 @@ public class UI {
 		g2.setFont(healthUI);
 		g2.setColor(Color.blue);
 		g2.drawString("health = " + gp.player.health, 35, 90);
+		
+		g2.setFont(potionsUI);
+		g2.setColor(Color.green);
+		g2.drawString("Potions = " + gp.player.GetPlayerHealItems().size(), 35, 130);
 		
 		g2.setFont(enemyHealthUI);
 		g2.setColor(Color.red);

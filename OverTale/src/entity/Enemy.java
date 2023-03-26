@@ -123,7 +123,7 @@ public class Enemy extends Entity{
 	
 	public void setHealth() {
 		Random rn = new Random();
-		int answer = rn.nextInt(6) + 1;
+		int answer = rn.nextInt(4) + 1;
 		health = health - answer;
 		System.out.println("Enemy hit, health: " + health);
 	}

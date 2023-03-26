@@ -20,13 +20,13 @@ public class Player extends Entity{
 	KeyHandler keyH;
 	String modeString;
 	ArrayList <HealItem> healItemList = new ArrayList<>();
+	int itemIndex;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
 		this.gp = gp;
 		this.keyH = keyH;
 		this.modeString = "Attack";
-		
 		
 		hitBoxTile = new Rectangle();
 		//make the hit box slightly smaller then the tile size so it fits player model
@@ -139,6 +139,7 @@ public class Player extends Entity{
 		health = 12;
 		maxHealth = health;
 		healItems = 8;
+		itemIndex = healItems;
 		
 		//fill the item list with healing items
 		for (int i = 0; i < healItems; i++) {
@@ -159,20 +160,15 @@ public class Player extends Entity{
 		}
 		
 		if (keyH.useItem == true) {
-			for (int i = 0; i < healItemList.size(); i++) {
-				if (healItemList.get(i) != null) {
-					//print / draw the item list
-					System.out.println("Index: " + i + ", Name: " + healItemList.get(i).itemName + ", Heal Amount: " + healItemList.get(i).healAmount);
-				}
-			}
-			
-			//Get the user selection for what item they want to use
-			health = health + healItemList.get(1).healAmount;
-			healItemList.remove(1);
+			itemIndex = itemIndex - 1;
+			health = health + healItemList.get(itemIndex).healAmount;
+			healItemList.remove(itemIndex);
 			if (health > maxHealth) {
 				health = maxHealth;
 			}
 			System.out.println("Player Heal, health: " + health);
+			System.out.println("Potions: " + healItemList.size());
+			keyH.useItem = false;
 		}
 	}
 	
