@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.GamePlay2D;
 
 public class Enemy extends Entity{
 
-	GamePanel gp;
+	GamePlay2D gp;
 	String modeString;
 	int numberOfProjectile;
 	int speedOfProjectile;
 	int HealthOfProjectile;
 	
-	public Enemy(GamePanel gp) {
+	public Enemy(GamePlay2D gp) {
 		this.modeString = "Defence";
 		this.gp = gp;
 		enemyVisible = true;

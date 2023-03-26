@@ -4,9 +4,9 @@ import entity.Entity;
 
 public class CollisionChecker {
 
-	GamePanel gp;
+	GamePlay2D gp;
 	
-	public CollisionChecker(GamePanel gp) {
+	public CollisionChecker(GamePlay2D gp) {
 		this.gp = gp;
 	}
 	

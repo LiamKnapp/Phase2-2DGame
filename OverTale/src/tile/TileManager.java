@@ -8,15 +8,15 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.GamePlay2D;
 
 public class TileManager {
 
-	GamePanel gp;
+	GamePlay2D gp;
 	public Tile[] tile;
 	public int mapTileNum[][];
 	
-	public TileManager(GamePanel gp) {
+	public TileManager(GamePlay2D gp) {
 		
 		this.gp = gp;
 		

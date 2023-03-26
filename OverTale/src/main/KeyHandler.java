@@ -12,9 +12,9 @@ public class KeyHandler implements KeyListener{
 	public boolean upPressed, downPressed, leftPressed, rightPressed, shotPressed, attackEnemy, useItem;
 	//test
 	
-	GamePanel gp;
+	private GamePlay2D gp;
 	
-	public KeyHandler(GamePanel gp) {
+	public KeyHandler(GamePlay2D gp) {
 		this.gp = gp;
 	}
 	

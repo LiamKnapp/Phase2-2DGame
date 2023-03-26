@@ -9,7 +9,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.GamePlay2D;
 
 public class Projectile extends Entity{
 

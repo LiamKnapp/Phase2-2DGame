@@ -6,23 +6,24 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.StandardWatchEventKinds;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.GamePlay2D;
 import main.KeyHandler;
 import objects.HealItem;
 
 public class Player extends Entity{
 //test
-	GamePanel gp;
+	GamePlay2D gp;
 	KeyHandler keyH;
 	String modeString;
 	ArrayList <HealItem> healItemList = new ArrayList<>();
 	int itemIndex;
-	
-	public Player(GamePanel gp, KeyHandler keyH) {
+
+	public Player(GamePlay2D gp, KeyHandler keyH) {
 		
 		this.gp = gp;
 		this.keyH = keyH;
@@ -175,7 +176,6 @@ public class Player extends Entity{
 			keyH.useItem = false;
 		}
 	}
-	
 	public void getPlayerImage() {
 		
 		try {
@@ -194,6 +194,7 @@ public class Player extends Entity{
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void update(String mode) {
 		if (health <= 0) 
@@ -225,7 +226,7 @@ public class Player extends Entity{
 		if(visible == true)
 		{
 		BufferedImage image = null;
-		
+
 		switch (direction) {
 		case "up":
 			if(spriteNum == 1) {

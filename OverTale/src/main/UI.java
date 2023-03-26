@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.awt.GraphicsEnvironment;
 
 public class UI {
-	GamePanel gp;
+	GamePlay2D gp;
 	Font roundUI;
 	Font healthUI;
 	Font enemyHealthUI;
@@ -22,7 +22,7 @@ public class UI {
 	
 	public int commandNum = 0;
 	
-	public UI(GamePanel gp) {
+	public UI(GamePlay2D gp) {
 		this.gp = gp;
 		
         try 
@@ -221,7 +221,7 @@ public class UI {
 	{
 		gp.tileM.draw(g2);
 		gp.enemy.draw(g2);
-		gp.player.draw(g2);
+		gp.getPlayer().draw(g2);
 		
 		//for every projectile in the list draw it
 		for (int i = 0; i < gp.projectileList.size(); i++) {
@@ -238,10 +238,10 @@ public class UI {
 		g2.drawString("Round = " + gp.surviveCounter, 38, 52);
 		
 		g2.setFont(healthUI);
-		g2.drawString("health = " + gp.player.health, 38, 92);
+		g2.drawString("health = " + gp.getPlayer().health, 38, 92);
 		
 		g2.setFont(potionsUI);
-		g2.drawString("Potions = " + gp.player.GetPlayerHealItems().size(), 38, 132);
+		g2.drawString("Potions = " + gp.getPlayer().GetPlayerHealItems().size(), 38, 132);
 		
 		g2.setFont(enemyHealthUI);
 		g2.drawString("BOSS: " + gp.enemy.health, 293, 227);
@@ -253,17 +253,17 @@ public class UI {
 		
 		g2.setFont(healthUI);
 		g2.setColor(Color.blue);
-		g2.drawString("health = " + gp.player.health, 35, 90);
+		g2.drawString("health = " + gp.getPlayer().health, 35, 90);
 		
 		g2.setFont(potionsUI);
 		g2.setColor(Color.green);
-		g2.drawString("Potions = " + gp.player.GetPlayerHealItems().size(), 35, 130);
+		g2.drawString("Potions = " + gp.getPlayer().GetPlayerHealItems().size(), 35, 130);
 		
 		g2.setFont(enemyHealthUI);
 		g2.setColor(Color.red);
 		g2.drawString("BOSS: " + gp.enemy.health, 290, 225);
 		
-		if (gp.player.GetMode() == "Defence")
+		if (gp.getPlayer().GetMode() == "Defence")
 		{
 			g2.setFont(currentTurnUI);
 			g2.setColor(Color.black);

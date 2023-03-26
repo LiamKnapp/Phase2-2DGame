@@ -19,8 +19,7 @@ import tile.TileManager;
 import data.CareTaker;
 import data.Memento;
 
-public class GamePanel extends JPanel implements Runnable {
-
+public class GamePlay2D extends JPanel implements GamePlayStory {
 	// screen settings
 	final int originalTileSize = 16; // 16x16 tile
 	final int scale = 3;
@@ -41,13 +40,13 @@ public class GamePanel extends JPanel implements Runnable {
 	public boolean gameOver = false;
 	int surviveCounter = 0;
 	public UI ui = new UI(this);
-	private GamePanel state;
+	private GamePlay2D state;
 	public CareTaker careTaker = new CareTaker();
 
 	// ENTITY / OBJECT
 	public ArrayList <Projectile> projectileList = new ArrayList<Projectile>();
 	Enemy enemy = new Enemy(this);
-	Player player = new Player(this, keyH);
+	private Player player = new Player(this, keyH);
 	public boolean enemytakeDMG = false;
 	public boolean playerHeal = false;
 	
@@ -59,15 +58,18 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int loadState = 3;
 	boolean turnSwitch = false;
 	
-	public GamePanel() {
+	public GamePlay2D() {
 
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-    
 		gameSetup();
+	}
+	@Override
+	public GamePlay2D getGamePlayPanel() {
+		return this;		
 	}
 
 	public void gameSetup() {
@@ -86,7 +88,8 @@ public class GamePanel extends JPanel implements Runnable {
 		gameState = titleState;
 	}
 
-	public void startGameThread() {
+	@Override
+	public void startGamePlay() {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -141,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable {
 			if (attackMode == true) {
 				
 				if (enemytakeDMG == true) { // if the user selects to attack the enemy on there turn
-					player.SwitchMode();
+					getPlayer().SwitchMode();
 					enemy.SwitchMode();
 					System.out.println("Done " + time_of_turn + " second, Changing mode...");
 					lastTime_timer2 = System.currentTimeMillis();
@@ -152,13 +155,13 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 				
 				if (playerHeal == true) { // if the user selects to attack the enemy on there turn
-					player.SwitchMode();
+					getPlayer().SwitchMode();
 					enemy.SwitchMode();
 					System.out.println("Done " + time_of_turn + " second, Changing mode...");
 					lastTime_timer2 = System.currentTimeMillis();
 					timer_2 = 0;
 					time_of_turn = RandomTurnTime();
-					player.setHealth();
+					getPlayer().setHealth();
 					playerHeal = false;
 				}
 				
@@ -169,7 +172,7 @@ public class GamePanel extends JPanel implements Runnable {
 				//{
 					if (timer_2 >= 1000 * time_of_turn) {
 						ui.commandNum = 0;
-						player.SwitchMode();
+						getPlayer().SwitchMode();
 						enemy.SwitchMode();
 						System.out.println("Done " + time_of_turn + " second, Changing mode...");
 						lastTime_timer2 = System.currentTimeMillis();
@@ -195,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	public void getCurrentMode() {
-		String modeString = player.GetMode();
+		String modeString = getPlayer().GetMode();
 		if(modeString == "Defence")
 		{
 			attackMode = false;
@@ -211,7 +214,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		
 		if (gameState == playState) {
-			this.ApplyMode(enemy, player);
+			this.ApplyMode(enemy, getPlayer());
 			
 			if (attackMode == true) {
 				//update the hp of the projectile to draw it for a certain distance
@@ -247,7 +250,7 @@ public class GamePanel extends JPanel implements Runnable {
 				System.out.println("New Enemy Appeared!!!");
 			}
 			
-			if (player.health <= 0) {
+			if (getPlayer().health <= 0) {
 				System.out.println("Round Failed!");
 				System.out.println("Survived Rounds: " + surviveCounter);
 				turnSwitch = false;
@@ -294,17 +297,17 @@ public class GamePanel extends JPanel implements Runnable {
 	public void resetGame() {
 		projectileList = new ArrayList<Projectile>();
 		enemy = new Enemy(this);
-		player = new Player(this, keyH);
+		setPlayer(new Player(this, keyH));
 		
 		this.surviveCounter = 0;
 	}
 	
 	public int GetPlayerHealth() {
-		return player.health;
+		return getPlayer().health;
 	}
 	
 	public String GetPlayerMode() {
-		return player.GetMode();
+		return getPlayer().GetMode();
 	}
 	
 	public int GetEnemyHealth() {
@@ -324,13 +327,13 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	public ArrayList<HealItem> GetHealItemList () {
-		return player.GetPlayerHealItems();
+		return getPlayer().GetPlayerHealItems();
 	}
 	
 	public void setMemento(Memento memento) {
 		//Player
-		player.health = memento.getPlayerHealth();
-		player.SetModeString(memento.getPlayerModeString());
+		getPlayer().health = memento.getPlayerHealth();
+		getPlayer().SetModeString(memento.getPlayerModeString());
 		
 		//Enemy
 		enemy.health = memento.getEnemyHealth();
@@ -341,7 +344,17 @@ public class GamePanel extends JPanel implements Runnable {
 		surviveCounter = memento.getSurviveCounter();
 		
 		//Player items
-		player.setHealItemList(memento.getHealNameList(), memento.getHealAmountList());
+		getPlayer().setHealItemList(memento.getHealNameList(), memento.getHealAmountList());
 	}
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+
+
+
 	
 }

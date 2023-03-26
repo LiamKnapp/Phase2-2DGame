@@ -3,12 +3,12 @@ package data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import main.GamePanel;
+import main.GamePlay2D;
 
 public class Memento implements Serializable {
 	
 	//Private fields.
-	GamePanel gp;
+	GamePlay2D gp;
 	
 	//Player
 	int playerHealth;
@@ -26,7 +26,7 @@ public class Memento implements Serializable {
 	ArrayList <String> healNameList = new ArrayList<>();
 	ArrayList <Integer> healAmountList = new ArrayList<>();
 	
-	public Memento(GamePanel gp)
+	public Memento(GamePlay2D gp)
 	{
 		//Player
 		this.playerHealth = gp.GetPlayerHealth();
