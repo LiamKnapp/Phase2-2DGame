@@ -138,7 +138,7 @@ public class Player extends Entity{
 		speed = 4;
 		health = 12;
 		maxHealth = health;
-		healItems = 1;
+		healItems = 4;
 		itemIndex = healItems;
 		
 		//fill the item list with healing items
