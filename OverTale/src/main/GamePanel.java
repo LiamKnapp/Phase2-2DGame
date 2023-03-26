@@ -177,6 +177,10 @@ public class GamePanel extends JPanel implements Runnable {
 						lastTime_timer2 = System.currentTimeMillis();
 						timer_2 = 0;
 						time_of_turn = RandomTurnTime();
+					} else
+					{
+						time_of_turn = RandomTurnTime();
+						timer_2 = 0;
 					}
 				}
 			}
