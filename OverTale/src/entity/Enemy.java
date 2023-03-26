@@ -17,7 +17,7 @@ public class Enemy extends Entity{
 	int HealthOfProjectile;
 	
 	public Enemy(GamePanel gp) {
-		this.modeString = "Attack";
+		this.modeString = "Defence";
 		this.gp = gp;
 		enemyVisible = true;
 		getRandomEnemy();
