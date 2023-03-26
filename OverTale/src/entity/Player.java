@@ -162,12 +162,13 @@ public class Player extends Entity{
 		if (keyH.useItem == true) {
 			if (healItemList.isEmpty() == false) {
 			health = health + healItemList.get(itemIndex).healAmount;
+			System.out.println("Player Heal, Item: " + healItemList.get(itemIndex).itemName + ", Heal Amount: " + healItemList.get(itemIndex).healAmount);
 			healItemList.remove(itemIndex);
 			itemIndex = itemIndex - 1;
 			if (health > maxHealth) {
 				health = maxHealth;
 			}
-			System.out.println("Player Heal, health: " + health);
+			System.out.println("Player Total Health: " + health);
 			}else {
 			System.out.println("No Items left! WATCH OUT!!" + health);
 			}
