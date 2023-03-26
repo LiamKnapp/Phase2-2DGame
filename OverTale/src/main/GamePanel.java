@@ -165,23 +165,19 @@ public class GamePanel extends JPanel implements Runnable {
 				//System.out.println("Users turn: select fight or item!");
 			} else {
 			
-				if (turnSwitch == true)
-				{
+				//if (turnSwitch == true)
+				//{
 					if (timer_2 >= 1000 * time_of_turn) {
 						ui.commandNum = 0;
 						player.SwitchMode();
 						enemy.SwitchMode();
 						System.out.println("Done " + time_of_turn + " second, Changing mode...");
-	//					Button_Panel button_Panel = new Button_Panel(this);
-	//					button_Panel.createSmallButton();
 						lastTime_timer2 = System.currentTimeMillis();
 						timer_2 = 0;
 						time_of_turn = RandomTurnTime();
-					} else
-					{
-						
 					}
-				}
+				//}
+				//System.out.println("Timer2: " + timer_2);
 			}
 			
 			if (timer >= 1000000000) {
